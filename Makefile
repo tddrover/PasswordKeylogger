@@ -1,4 +1,4 @@
-obj-m += fileNameHere.o
+obj-m += PasswordKeylogger.o
 
 all:
 	make -C /lib/modules/$(shell uname -r)/build M=$(PWD) modules
