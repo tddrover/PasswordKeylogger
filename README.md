@@ -6,22 +6,25 @@ Features
 - Logs keystrokes made on the system's keyboard.
 - Operates as a kernel module, integrating directly with the Linux kernel.
 - Records up to 100 possible passwords
+- Provides logged passwords via '/proc' filesystem interface
 
 
 Screenshots: 
 
 <div display="flex">
 <img src="/pictures/Screenshot_1.png" alt="Image 1" width="50%" />
+<img src="/pictures/Screenshot_2.png" alt="Image 1" width="50%" />
 </div>
 
 
 How to Run the App:
 - Navigate to the directory with the files and compile the module with "make"
 - Load the module into the kernel with "sudo insmod PasswordKeylogger.ko"
-- Once the module is loaded, it will begin logging keystrokes made on the system's keyboard. You can check possible passwords by running "sudo dmesg"
+- Once the module is loaded, it will begin logging keystrokes made on the system's keyboard.
+- You can check possible passwords by running "sudo dmesg" OR by checking the '/proc/project3file' that it also writes to.
 
 Unload the Kernel Module
-- Use "sudo rmmod PasswordKeylogger" to remove the NetworkMonitor module from the kernel
+- Use "sudo rmmod PasswordKeylogger" to remove the module from the kernel
 
 Important Notes
 - Use caution when deploying kernel modules, as they operate at a low level and can impact system stability.
